@@ -1,21 +1,16 @@
 #ifndef CPP_COVID_METRICS_PRINT_INCIDENTS_PER_AGE_H
 #define CPP_COVID_METRICS_PRINT_INCIDENTS_PER_AGE_H
 
-#include "HashMap.h"
-#include "Casos.h"
+#include "Caso.h"
+#include "Lista.h"
+#include <unordered_map>
+#include <vector>
 
-const std::string ListaProvincias[] = {"Buenos Aires", "CABA", "Catamarca", "Chaco", "Chubut", "Córdoba", "Corrientes",
+const int PROVINCIAS = 25;
+const std::string listaProvincias[PROVINCIAS] = {"Buenos Aires", "CABA", "Catamarca", "Chaco", "Chubut", "Córdoba", "Corrientes",
                                   "Entre Ríos", "Formosa", "Jujuy", "La Pampa", "La Rioja", "Mendoza", "Misiones",
                                   "Neuquén", "Rio Negro", "Salta", "San Juan", "San Luis", "Santa Cruz", "Santa Fe",
                                   "Santiago del Estero", "Tierra del Fuego", "Tucumán", "Sin Provincia"};
-
-unsigned int miHF(std::string provincia) {
-    for (int i = 0; i < 25; i++) {
-        if (provincia == ListaProvincias[i]) {
-            return i;
-        }
-    }
-}
 
 void printIncidentsPerAge(std::string filename, int age) {
     if (age == 0) throw "Error!";
@@ -29,9 +24,9 @@ void printIncidentsPerAge(std::string filename, int age) {
         throw "Error!";
     }
 
-    HashMap<std::string, Casos> HashCasos(25, miHF);
-    HashEntry<std::string, Casos> *aux;
-    Casos caso;
+    std::unordered_map<std::string, vector<Caso>> HashCasos;
+    Caso caso;
+    int counter = 1;
 
     std::string line;
     std::getline(fin, line);
@@ -39,20 +34,26 @@ void printIncidentsPerAge(std::string filename, int age) {
         std::getline(fin, line);
         caso.ProcesarDato(line);
         if (caso.Anios_Meses() == "Años" && caso.edad() == age && caso.clasificacion() == "Confirmado") {
-            HashCasos.put(caso.provincia(), caso);
+            if (HashCasos.find(caso.provincia()) == HashCasos.end()) {
+                vector<Caso> list;
+                list.push_back(caso);
+                HashCasos[caso.provincia()] = list;
+            } else {
+                HashCasos.at(caso.provincia()).push_back(caso);
+            }
+            counter++;
         }
     }
 
-    for (int i = 0; i < 25; i++) {
-        try {
-            aux = HashCasos.get(ListaProvincias[i]);
-            cout << "La lista de la provincia: " << ListaProvincias[i] << endl;
-            while (aux != nullptr) {
-                cout << aux->getData() << endl;
-                aux = aux->getnext();
+    for (int i = 0; i < PROVINCIAS; i++) {
+        if (HashCasos.find(listaProvincias[i]) != HashCasos.end()) {
+            vector<Caso> vector = HashCasos[listaProvincias[i]];
+            cout << "===============================================" << endl;
+            cout << "La lista de la provincia: " << listaProvincias[i] << ", casos: " << vector.size() << endl;
+            for (auto & provincia : vector) {
+                std::cout << provincia << std::endl;
             }
-        } catch ( ... ) {
-            cout << "La Provincia: " << ListaProvincias[i] << " esta vacia" << endl;
+            cout << endl;
         }
     }
 }

@@ -1,13 +1,11 @@
 #include <iostream>
-#include <time.h>
 #include "headers/print_stats.h"
 #include "headers/print_incidents.h"
 #include "headers/print_incidents_per_age.h"
 #include "headers/print_incidents_cui.h"
 
 int main(int argc, char **argv) {
-    clock_t time_1, time_2;
-    time_1 = clock();
+    auto inicio = std::chrono::high_resolution_clock::now();
 
     // Obtenemos el path del archivo CSV para abrirlo
     std::string filename = "";
@@ -32,7 +30,6 @@ int main(int argc, char **argv) {
     } else if (strcmp(argv[i],"-p_casos") == 0 || strcmp(argv[i],"-p_muertes") == 0) {
         int total;
         bool only_deceased = strcmp(argv[i],"-p_muertes") == 0;
-
         try {
             total = std::stoi(argv[i + 1]);
             printIncidents(filename, total, only_deceased);
@@ -60,11 +57,9 @@ int main(int argc, char **argv) {
         printIncidentsCui(filename, fecha);
     }
 
-    time_2 = clock();
-    double average = static_cast<double>(time_2 - time_1) / CLOCKS_PER_SEC;
-    std::cout << std::endl;
-    std::cout << "===== Tiempo de ejecucion: " << average << "s. =====" << std::endl;
-    std::cout << std::endl;
-
+    auto final = std::chrono::high_resolution_clock::now();
+    auto milli = duration_cast<std::chrono::milliseconds>(final - inicio);
+    cout<<"Tiempo de ejecucion: "<< ((float)milli.count()/1000) << " segundos." << std::endl;
+    cout<<"Tiempo de ejecucion: "<< ((float)milli.count()) << " milisegundos." << std::endl;
     return 0;
 }

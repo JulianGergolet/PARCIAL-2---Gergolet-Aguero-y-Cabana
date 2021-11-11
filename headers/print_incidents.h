@@ -2,8 +2,8 @@
 #define CPP_COVID_METRICS_PRINT_INCIDENTS_H
 
 #include <fstream>
-#include "Provincias.h"
-#include "Casos.h"
+#include "Provincia.h"
+#include "Caso.h"
 #include "print_incidents.h"
 #include "utils.h"
 
@@ -27,7 +27,7 @@ void printIncidents(std::string filename, int limit, bool only_deceased) {
         ProvinciasFallecido[i] = Provincia(ListaProvincias[i], 0);
     }
 
-    Casos casos;
+    Caso casos;
     if (fin.fail()) {
         cout << "No se pudo abrir el csv" << endl;
     } else {
@@ -58,13 +58,13 @@ void printIncidents(std::string filename, int limit, bool only_deceased) {
         }
         if (!only_deceased) {
             QuickSortProvincia(ProvinciasContagiado, 0, 23);
-            cout << "Casos confirmados por provincias: " << endl;
+            cout << "Caso confirmados por provincias: " << endl;
             for (int i = 0; i < limit; i++) {
                 cout << ProvinciasContagiado[i] << endl;
             }
         } else {
             QuickSortProvincia(ProvinciasFallecido, 0, 23);
-            cout << "Casos fallecidos por Provincia: " << endl;
+            cout << "Caso fallecidos por Provincia: " << endl;
             for (int i = 0; i < limit; i++) {
                 cout << ProvinciasFallecido[i] << endl;
             }

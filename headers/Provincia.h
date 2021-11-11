@@ -1,17 +1,20 @@
 #ifndef TRABAJOFINAL_PROVINCIAS_H
 #define TRABAJOFINAL_PROVINCIAS_H
+
 #include <iostream>
 #include <vector>
 #include <string>
 #include <sstream>
-#include "Casos.h"
+#include "Caso.h"
 #include "Lista.h"
+
 using namespace std;
+
 class Provincia {
 private:
     string nombre;
     int contador;
-    //Lista<Casos *> casos;
+    Lista<Caso> casos;
 public:
     Provincia(){
         nombre="N/A";
@@ -26,13 +29,29 @@ public:
         return nombre;
     }
 
+    void print() {
+        casos.print();
+    }
 
     void setNombre(const string &nombre) {
         Provincia::nombre = nombre;
     }
+
     void IncrementarContador(){
         contador++;
     }
+
+    void insertarCaso(Caso caso) {
+        casos.insertarPrimero(caso);
+    }
+
+    void limpiar() {
+        nombre = "";
+        contador = 0;
+        casos.vaciar();
+    }
+
+
     bool operator==(const Provincia &rhs) const {
         return nombre == rhs.nombre ;
     }

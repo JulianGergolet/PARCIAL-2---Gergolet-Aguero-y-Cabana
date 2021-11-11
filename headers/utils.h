@@ -1,8 +1,8 @@
 #ifndef CPP_COVID_METRICS_UTILS_H
 #define CPP_COVID_METRICS_UTILS_H
 
-#include "Provincias.h"
-#include "Casos.h"
+#include "Provincia.h"
+#include "Caso.h"
 #include "utils.h"
 
 void QuickSortProvincia(Provincia a[], int primero, int ultimo) {
@@ -27,9 +27,9 @@ void QuickSortProvincia(Provincia a[], int primero, int ultimo) {
     if (i < ultimo) QuickSortProvincia(a, i, ultimo); // mismo proceso con sublista drcha
 }
 
-void QuickSortCasos(Casos a[], int primero, int ultimo) {
+void QuickSortCasos(Caso a[], int primero, int ultimo) {
     int i, j, central;
-    Casos pivote, aux;
+    Caso pivote, aux;
     central = (primero + ultimo) / 2;
     pivote = a[central];
     i = primero;

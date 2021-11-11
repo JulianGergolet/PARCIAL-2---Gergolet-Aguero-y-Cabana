@@ -1,5 +1,5 @@
-#ifndef CPP_COVID_METRICS_CASOS_H
-#define CPP_COVID_METRICS_CASOS_H
+#ifndef CPP_COVID_METRICS_CASO_H
+#define CPP_COVID_METRICS_CASO_H
 
 #include <iostream>
 #include <vector>
@@ -8,7 +8,7 @@
 
 using namespace std;
 
-class Casos {
+class Caso {
 private:
     int Id_Casos;
     int Edad;
@@ -21,11 +21,11 @@ private:
     string Clasificacion;
 
 public:
-    friend ostream &operator<<(ostream &os, const Casos &casos);
+    friend ostream &operator<<(ostream &os, const Caso &casos);
 
-    Casos();
+    Caso();
 
-    Casos(string line);
+    Caso(string line);
 
     void ProcesarDato(string line);
 
@@ -45,16 +45,16 @@ public:
 
     string clasificacion();
 
-    bool operator<(const Casos &rhs) const;
+    bool operator<(const Caso &rhs) const;
 
-    bool operator>(const Casos &rhs) const;
+    bool operator>(const Caso &rhs) const;
 
-    bool operator<=(const Casos &rhs) const;
+    bool operator<=(const Caso &rhs) const;
 
-    bool operator>=(const Casos &rhs) const;
+    bool operator>=(const Caso &rhs) const;
 };
 
-Casos::Casos() {
+Caso::Caso() {
     Id_Casos = 0;
     Edad = 0;
     AniosOMeses = "Anios";
@@ -66,11 +66,11 @@ Casos::Casos() {
     Clasificacion = "N/A";
 }
 
-Casos::Casos(string line) {
+Caso::Caso(string line) {
     ProcesarDato(line);
 }
 
-void Casos::ProcesarDato(string line) {
+void Caso::ProcesarDato(string line) {
     stringstream s(line);
     string word;
     for (int columnas = 0; getline(s, word, ','); columnas++) {
@@ -120,35 +120,35 @@ void Casos::ProcesarDato(string line) {
     }
 }
 
-int Casos::edad() {
+int Caso::edad() {
     return Edad;
 }
 
-string Casos::Anios_Meses() {
+string Caso::Anios_Meses() {
     return AniosOMeses;
 }
 
-string Casos::Cui() {
+string Caso::Cui() {
     return CUI;
 }
 
-string Casos::Fecha_CUI() {
+string Caso::Fecha_CUI() {
     return FechaCUI;
 }
 
-string Casos::fallecido() {
+string Caso::fallecido() {
     return Fallecio;
 }
 
-int Casos::Provincia_Id() {
+int Caso::Provincia_Id() {
     return Provincia_Id();
 }
 
-string Casos::clasificacion() {
+string Caso::clasificacion() {
     return Clasificacion;
 }
 
-ostream &operator<<(ostream &os, const Casos &casos) {
+ostream &operator<<(ostream &os, const Caso &casos) {
     os << "Id_Casos:" << casos.Id_Casos << " Edad:" << casos.Edad << " Anios/Meses:" << casos.AniosOMeses << " CUI:"
        << casos.CUI << " FechaCUI:" << casos.FechaCUI << " Fallecio:" << casos.Fallecio << " IdProvincia:"
        << casos.IdProvincia<< " Provincia:"
@@ -156,25 +156,25 @@ ostream &operator<<(ostream &os, const Casos &casos) {
     return os;
 }
 
-string Casos::provincia() {
+string Caso::provincia() {
     return Provincia;
 }
 
-bool Casos::operator<(const Casos &rhs) const {
+bool Caso::operator<(const Caso &rhs) const {
     return FechaCUI < rhs.FechaCUI;
 }
 
-bool Casos::operator>(const Casos &rhs) const {
+bool Caso::operator>(const Caso &rhs) const {
     return FechaCUI > rhs.FechaCUI;
 }
 
-bool Casos::operator<=(const Casos &rhs) const {
+bool Caso::operator<=(const Caso &rhs) const {
     return !(rhs < *this);
 }
 
-bool Casos::operator>=(const Casos &rhs) const {
+bool Caso::operator>=(const Caso &rhs) const {
     return !(*this < rhs);
 }
 
 
-#endif //CPP_COVID_METRICS_CASOS_H
+#endif //CPP_COVID_METRICS_CASO_H

@@ -1,7 +1,7 @@
 #ifndef U02_LISTAS_LISTA_LISTA_H_
 #define U02_LISTAS_LISTA_LISTA_H_
 
-#include "nodo.h"
+#include "ListaNodo.h"
 #include <iostream>
 
 using namespace std;
@@ -12,7 +12,7 @@ using namespace std;
  */
 template <class T> class Lista {
 private:
-  Nodo<T> *inicio;
+  ListaNodo<T> *inicio;
 
 public:
   Lista();
@@ -80,7 +80,7 @@ template <class T> bool Lista<T>::esVacia() { return inicio == nullptr; }
  * @return la cantidad de nodos de la lista
  */
 template <class T> int Lista<T>::getTamanio() {
-  Nodo<T> *aux = inicio;
+    ListaNodo<T> *aux = inicio;
   int size = 0;
 
   while (aux != nullptr) {
@@ -99,8 +99,8 @@ template <class T> int Lista<T>::getTamanio() {
  */
 template <class T> void Lista<T>::insertar(int pos, T dato) {
   int posActual = 0;
-  Nodo<T> *aux = inicio, *nuevo;
-  nuevo = new Nodo<T>;
+  ListaNodo<T> *aux = inicio, *nuevo;
+  nuevo = new ListaNodo<T>;
   nuevo->setDato(dato);
 
   if (pos == 0) {
@@ -135,8 +135,8 @@ template <class T> void Lista<T>::insertarPrimero(T dato) { insertar(0, dato); }
  * @param dato dato a insertar
  */
 template <class T> void Lista<T>::insertarUltimo(T dato) {
-  Nodo<T> *aux = inicio, *nuevo;
-  nuevo = new Nodo<T>;
+    ListaNodo<T> *aux = inicio, *nuevo;
+  nuevo = new ListaNodo<T>;
   nuevo->setDato(dato);
 
   if (aux == nullptr) {
@@ -159,7 +159,7 @@ template <class T> void Lista<T>::insertarUltimo(T dato) {
  * @param pos posicion del nodo a eliminar
  */
 template <class T> void Lista<T>::remover(int pos) {
-  Nodo<T> *aux = inicio, *aBorrar;
+    ListaNodo<T> *aux = inicio, *aBorrar;
   int posActual = 0;
 
   if (pos == 0) {
@@ -190,7 +190,7 @@ template <class T> void Lista<T>::remover(int pos) {
  * @return dato almacenado en el nodo
  */
 template <class T> T Lista<T>::getDato(int pos) {
-  Nodo<T> *aux = inicio;
+    ListaNodo<T> *aux = inicio;
   int posActual = 0;
 
   while (aux != nullptr && posActual < pos) {
@@ -212,7 +212,7 @@ template <class T> T Lista<T>::getDato(int pos) {
  * @param dato nuevo dato a almacenar
  */
 template <class T> void Lista<T>::reemplazar(int pos, T dato) {
-  Nodo<T> *aux = inicio;
+    ListaNodo<T> *aux = inicio;
   int posActual = 0;
 
   while (aux != nullptr && posActual < pos) {
@@ -232,7 +232,7 @@ template <class T> void Lista<T>::reemplazar(int pos, T dato) {
  * @tparam T
  */
 template <class T> void Lista<T>::vaciar() {
-  Nodo<T> *aux = inicio, *aBorrar;
+    ListaNodo<T> *aux = inicio, *aBorrar;
 
   while( aux != nullptr ){
     aBorrar = aux;
@@ -246,7 +246,7 @@ template <class T> void Lista<T>::vaciar() {
 
 template<class T>
 void Lista<T>::print() {
-  Nodo<T> *aux = inicio;
+    ListaNodo<T> *aux = inicio;
 
   while (aux != nullptr) {
     cout << aux->getDato() << endl;
@@ -258,7 +258,7 @@ void Lista<T>::print() {
 template<class T>
 int Lista<T>::insertAfter2( T oldValue, int n, T newValue ){
 
-  Nodo<T> * aux = inicio;
+    ListaNodo<T> * aux = inicio;
   int ocurrences = 0;
   int currentPosition = 0;
 
@@ -283,14 +283,5 @@ int Lista<T>::insertAfter2( T oldValue, int n, T newValue ){
   }
 
 }
-/*template<class T>
-std::ostream &operator<<(std::ostream &os, const Lista<T> &lista) {
-    Nodo<T> *aux = lista.inicio;
-    while( aux != nullptr ){
-       os<<aux->getDato()<<std::endl;
-       aux=aux->getSiguiente();
-    }
-
-}*/
 
 #endif // U02_LISTAS_LISTA_LISTA_H_

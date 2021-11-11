@@ -4,7 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <ios>
-#include "Casos.h"
+#include "Caso.h"
 #include "print_stats.h"
 
 void printStats(std::string filename) {
@@ -25,30 +25,27 @@ void printStats(std::string filename) {
         deceasedByAge[k] = 0;
     }
 
+    Caso caso;
     std::string line;
     std::getline(fin, line); // Saltear el header
     while (fin.good()) {
         std::getline(fin, line);
-
-        Casos casos;
-        casos.ProcesarDato(line);
-
+        caso.ProcesarDato(line);
         num_cases++;
-
-        if (casos.clasificacion() == "Confirmado") {
+        if (caso.clasificacion() == "Confirmado") {
             contagion++;
-            if (casos.Anios_Meses() == "Meses") {
+            if (caso.Anios_Meses() == "Meses") {
                 confirmedByAge[0]++;
             } else {
-                confirmedByAge[casos.edad() / 10]++;
+                confirmedByAge[caso.edad() / 10]++;
             }
         } else {
-            if (casos.fallecido() == "SI") {
+            if (caso.fallecido() == "SI") {
                 deceased++;
-                if (casos.Anios_Meses() == "Meses") {
+                if (caso.Anios_Meses() == "Meses") {
                     deceasedByAge[0]++;
                 } else {
-                    deceasedByAge[casos.edad() / 10]++;
+                    deceasedByAge[caso.edad() / 10]++;
                 }
             }
         }

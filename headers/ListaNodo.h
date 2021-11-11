@@ -2,10 +2,10 @@
 #define NODO_H
 
 template <class T>
-class Nodo{
+class ListaNodo{
 private:
   T dato;
-  Nodo<T> *siguiente;
+  ListaNodo<T> *siguiente;
 
 public:
 
@@ -17,11 +17,11 @@ public:
     dato = d;
   }
 
-  Nodo<T> *getSiguiente(){
+  ListaNodo<T> *getSiguiente(){
     return siguiente;
   }
 
-  void setSiguiente(Nodo<T> *siguiente){
+  void setSiguiente(ListaNodo<T> *siguiente){
     this->siguiente = siguiente;
   }
 
